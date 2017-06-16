@@ -1,4 +1,4 @@
-<!--  @extends('master')
+ @extends('master')
 
 
  @section('content')
@@ -17,4 +17,4 @@
               
       </div>
 
-  @endsection('content') -->
+  @endsection('content') 

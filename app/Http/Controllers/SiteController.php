@@ -18,8 +18,6 @@ class SiteController extends Controller
         
         $current= nav::where('name','=',$page)->get()->first();
         $menus = nav::all();
-
-
        
          return view('layouts.home',compact('current','menus'));
     }

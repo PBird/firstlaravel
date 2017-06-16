@@ -15,8 +15,24 @@ class PanelController extends Controller
     public function index()
     {
         $menus = nav::all();
+        $data = array( );
 
-        return view('layouts.adminPanel',compact('menus'));
+
+
+        foreach ( $menus as $menu)
+        {
+            unset($new);
+            $new[] = $menu->id;
+            $new[] = $menu->content;
+            $new[] = $menu->title;
+            $new[] = $menu->name;
+            $data[]=$new;
+        }
+          
+
+
+
+         return view('layouts.adminPanel',compact('data'));
     }
 
     /**
@@ -36,6 +52,9 @@ class PanelController extends Controller
             
         $id->delete();
         return redirect('/');
+    
+
+
     }
 
     /**
