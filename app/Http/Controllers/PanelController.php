@@ -16,7 +16,6 @@ class PanelController extends Controller
     {
         $menus = nav::all();
 
-
         return view('layouts.adminPanel',compact('menus'));
     }
 
@@ -31,6 +30,14 @@ class PanelController extends Controller
 
     }
 
+      public function delete(nav $id,request $request)
+    {        
+
+            
+        $id->delete();
+        return redirect('/');
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -39,8 +46,10 @@ class PanelController extends Controller
      */
     public function store(Request $request)
     {
-        $input = $request->only(['title' , 'name','content']);
-        nav::create($input);      
+        
+       $input = $request->only(['title' , 'name','content']);
+        nav::create($input);    
+
         return redirect('/');
     }
 
@@ -73,10 +82,13 @@ class PanelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,nav $id)
     {
-        //
-    }
+         $input = $request->only(['title' , 'name','content']);
+         $id->update($input);
+        
+            return redirect('/');
+            }
 
     /**
      * Remove the specified resource from storage.

@@ -14,3 +14,5 @@
 Route::get('/{page?}', 'SiteController@index');
 Route::get('/giris/admin', 'PanelController@index');
 Route::get('/giris/admin/store', 'PanelController@store');
+Route::get('/giris/admin/{id}/delete', 'PanelController@delete');
+Route::get('/giris/admin/{id}/update', 'PanelController@update');
