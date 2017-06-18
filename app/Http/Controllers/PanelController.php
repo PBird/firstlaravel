@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\nav;
+
+use Intervention\Image\ImageManagerStatic as Image; 
+
 class PanelController extends Controller
 {
     /**
@@ -51,7 +53,7 @@ class PanelController extends Controller
 
             
         $id->delete();
-        return redirect('/');
+        return redirect('/giris/admin');
     
 
 
@@ -66,7 +68,29 @@ class PanelController extends Controller
     public function store(Request $request)
     {
         
-       $input = $request->only(['title' , 'name','content']);
+          $img = Image::make( $request->file('image'));
+       
+        $size = $img->filesize();
+
+         if($size>1000000)
+         {
+            return "size is too big";
+         }
+
+        $input = $request->only(['title' , 'name','content']);
+
+       $img->resize(800,300);
+
+       
+
+
+       $image_name = time()."-".$request->file('image')->getClientOriginalName();
+       $img->save('images/'.$image_name);
+
+       $input['imagepath'] = 'images/'.$image_name;
+
+  
+
         nav::create($input);    
 
         return redirect('/');
