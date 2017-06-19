@@ -6,5 +6,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class nav extends Model
 {
-    protected $fillable= ['title' , 'name','content','imagepath'];
+    protected $fillable= ['name'];
+
+
+
+
+
+
+    protected function post()
+    {
+
+    	return $this->hasOne('App\post');
+
+    }
+
+
+
+
+
 }

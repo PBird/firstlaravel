@@ -6,14 +6,14 @@
 
  <div class="jumbotron">
 
-        <img src="{{$current->imagepath}}" class="img-fluid" alt="Responsive image">
+        <img src="{{$current->post->imagepath}}" class="img-fluid" alt="Responsive image">
 
         <br>
          <br>
-        <h1 class="display-3"> {{$current->title}} </h1>
+        <h1 class="display-3"> {{$current->post->title}} </h1>
         <p class="lead">  
 
-        {{ $current->content }}
+        {{ $current->post->content }}
 
 
          </p>
