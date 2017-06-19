@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\nav;
-
+use App\post;
 use Intervention\Image\ImageManagerStatic as Image; 
 
 class PanelController extends Controller
@@ -25,8 +25,8 @@ class PanelController extends Controller
         {
             unset($new);
             $new[] = $menu->id;
-            $new[] = $menu->content;
-            $new[] = $menu->title;
+            $new[] = $menu->post->content;
+            $new[] = $menu->post->title;
             $new[] = $menu->name;
             $data[]=$new;
         }
@@ -53,6 +53,7 @@ class PanelController extends Controller
 
             
         $id->delete();
+        $id->post->delete();
         return redirect('/giris/admin');
     
 
@@ -77,7 +78,8 @@ class PanelController extends Controller
             return "size is too big";
          }
 
-        $input = $request->only(['title' , 'name','content']);
+        $post = $request->only(['title' ,'content']);
+        $menuname= $request->only('name');
 
        $img->resize(800,300);
 
@@ -87,11 +89,19 @@ class PanelController extends Controller
        $image_name = time()."-".$request->file('image')->getClientOriginalName();
        $img->save('images/'.$image_name);
 
-       $input['imagepath'] = 'images/'.$image_name;
+       $post['imagepath'] = 'images/'.$image_name;
 
-  
+       
+         $newnav  = new nav;
+         $newnav->name = $menuname['name'];
+         $newnav->save();
 
-        nav::create($input);    
+
+          $post['nav_id']=$newnav->id;
+
+
+          $newpost = new post($post);
+          $newpost->save();
 
         return redirect('/');
     }
@@ -127,11 +137,17 @@ class PanelController extends Controller
      */
     public function update(Request $request,nav $id)
     {
-         $input = $request->only(['title' , 'name','content']);
-         $id->update($input);
+         $post = $request->only(['title','content']);
+         $menuname = $request->only(['name']);     
+         $id->update($menuname);
+
+         $updatePost = post::where('nav_id','=',$id->id)->get()->first();
+         $updatePost->update($post);
         
-            return redirect('/');
-            }
+
+
+        return redirect('/');
+         }
 
     /**
      * Remove the specified resource from storage.
