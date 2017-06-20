@@ -68,6 +68,20 @@ class PanelController extends Controller
      */
     public function store(Request $request)
     {
+
+
+
+
+        $this->validate(request(), [
+
+                    'title' => 'required',
+                    'content' => 'required',
+                    'image' => 'required',
+                    'name' => 'required | min:2 '
+
+
+
+            ]);
         
           $img = Image::make( $request->file('image'));
        

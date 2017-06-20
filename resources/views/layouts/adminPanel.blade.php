@@ -14,7 +14,10 @@
 
 <form action="/giris/admin/store" method="post" enctype="multipart/form-data">
 
+
+
 {{ csrf_field() }}
+
 
 <div class="form-group">
 
@@ -22,7 +25,7 @@
 
 
     <label for="exampleTextarea"> Content Page  </label>
-    <textarea name="content" class="form-control" id="exampleTextarea" rows="3"></textarea>
+    <textarea name="content" class="form-control" id="exampleTextarea" rows="3" ></textarea>
   </div>
            
                     
@@ -38,15 +41,21 @@
 	      <input name="title" type="text" class="form-control" placeholder="title">
 	      <input name="name" type="text" class="form-control" placeholder="routeName">
 	   
-
-	        <button class="btn btn-success" type="submit">Create</button>
           
-           
- </div>
+
+	            <button class="btn btn-success" type="submit">Create</button>
+       
+          
+
+          
+ </div>          
 
       </div>
-       </form>
 
+
+       </form>
+  
+      @include('layouts.errors')
 
 
 
