@@ -77,9 +77,7 @@ class PanelController extends Controller
                     'title' => 'required',
                     'content' => 'required',
                     'image' => 'required',
-                    'name' => 'required | min:2 '
-
-
+                    'name' => 'required | min:2'
 
             ]);
         
@@ -111,13 +109,18 @@ class PanelController extends Controller
          $newnav->save();
 
 
-          $post['nav_id']=$newnav->id;
+         $newnav->post()->create( $post );
 
 
-          $newpost = new post($post);
-          $newpost->save();
+          // $post['nav_id']=$newnav->id;
 
-        return redirect('/');
+          // $newpost = new post($post);
+          // $newpost->save();
+
+
+        return back();
+
+
     }
 
     /**

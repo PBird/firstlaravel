@@ -13,13 +13,12 @@ class nav extends Model
 
 
 
-    protected function post()
+    public function post()
     {
 
     	return $this->hasOne('App\post');
 
     }
-
 
 
 
